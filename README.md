@@ -19,4 +19,4 @@ After you are satisfied with your choice of upper boundary, go ahead and pick th
 
 ### Sanity check of the collected melting layer
 The tool will then visualize the collected melting layer for users to double check, and to decide whether to save the data points or not.    
-<img src="https://github.com/YXIE1010/ClickCollect/blob/main/Figure/Figure_4.png" alt="Sanity check of the collected melting layer" width="70%" height="70%"> 
+<img src="https://github.com/YXIE1010/ClickCollect/blob/main/Figure/Figure_4.png" alt="Sanity check of the collected melting layer" width="60%" height="60%"> 
