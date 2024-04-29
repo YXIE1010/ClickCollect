@@ -29,5 +29,5 @@ The tool will then visualize the collected melting layer in **highlighted shade*
 </p>   
 
 ### 4 Demo video showing how to use ClickCollect  
-[![Watch the YouTube video](https://youtu.be/IgrfIy64aYA)
+<a href="https://youtu.be/IgrfIy64aYA">Watch the YouTube video</a>
  
