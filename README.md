@@ -18,5 +18,5 @@ After you are satisfied with your choice of upper boundary, go ahead and pick th
 <img src="https://github.com/YXIE1010/ClickCollect/blob/main/Figure/Figure_3.png" alt="ClickCollect lower boundary of the melting layer" width="60%" height="60%">  
 
 ### 3 Sanity check of the collected melting layer
-The tool will then visualize the collected melting layer for users to double check, and to decide whether to save the data points or not.    
+The tool will then visualize the collected melting layer in highlighted shade for users to double check, and to decide whether to save the data points or not.    
 <img src="https://github.com/YXIE1010/ClickCollect/blob/main/Figure/Figure_4.png" alt="Sanity check of the collected melting layer" width="65%" height="65%"> 
