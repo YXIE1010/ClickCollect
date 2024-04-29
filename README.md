@@ -6,11 +6,11 @@ May 18, 2015 from 18:00 to 24:00 UTC. The melting layer at around 1.8 km above t
 signatures in both radar reflectivity and doppler velocity observations.
 
 ### Interactive collection of melting layer boundaries via mouse clicks
-- upper boundary of melting layer__
+- upper boundary of melting layer  
 If melting layer exists, the code will then prompt you to click on the figures to collect information of melting layer boundaries. 
 This tool also allows users to adjust previous clicks by dragging the data marker when it turns from a circle to a triangle, as shown in the figure below.
 
-- lower boundary of melting layer__
+- lower boundary of melting layer  
 After you are satisfied with your choice of upper boundary, go ahead and pick the lower boundary of the melting layer.
 
 ### Sanity check of the collected melting layer
