@@ -1,6 +1,7 @@
 ## ClickCollect
 An interactive tool to collect data points from graph via mouse clicks
 ### An example: Ka-band Zenith Radar observations with melting layer
+![alt text](https://github.com/YXIE1010/ClickCollect/blob/main/Figure/Figure_1.png)
 The figure shows the [Ka-band ARM Zenith Radar (KAZR)](https://www.arm.gov/capabilities/instruments/kazr) observations at the North Slope of Alaska (NSA) site on 
 May 18, 2015 from 18:00 to 24:00 UTC. The melting layer at around 1.8 km above the ground signifies the height where snow melts into rain, and generate distinctive
 signatures in both radar reflectivity and doppler velocity observations.
