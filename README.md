@@ -8,8 +8,8 @@ signatures in both radar reflectivity and doppler velocity observations.
 
 ### Interactive collection of melting layer boundaries via mouse clicks
 - upper boundary of melting layer  
-If melting layer exists, the code will then prompt you to click on the figures to collect information of melting layer boundaries.
-![Figure 2: ClickCollect upper boundary of the melting layer](https://github.com/YXIE1010/ClickCollect/blob/main/Figure/Figure_2.png) 
+If melting layer exists, the code will then prompt you to click on the figures to collect information of melting layer boundaries.  
+<img src="https://github.com/YXIE1010/ClickCollect/blob/main/Figure/Figure_2.png" alt="ClickCollect upper boundary of the melting layer" width="60%" height="60%">  
 This tool also allows users to adjust previous clicks by dragging the data marker when it turns from a circle to a triangle, as shown by different markers
 in the figure above.
 
