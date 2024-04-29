@@ -28,6 +28,6 @@ The tool will then visualize the collected melting layer in **highlighted shade*
  <img src="https://github.com/YXIE1010/ClickCollect/blob/main/Figure/Figure_4.png" alt="Sanity check of the collected melting layer" width="62%" height="62%"/> 
 </p>   
 
-### 4 Demo video showing how to use ClickCollect    
+### 4 Demo video showing how to use ClickCollect on YouTube  
 [![Watch the video](https://img.youtube.com/vi/IgrfIy64aYA/hqdefault.jpg)](https://youtu.be/IgrfIy64aYA)
  
