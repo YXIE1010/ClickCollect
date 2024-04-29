@@ -26,4 +26,7 @@ After you are satisfied with your choice of upper boundary, go ahead and pick th
 The tool will then visualize the collected melting layer in **highlighted shade** for users to double check, and to decide whether to save the data points or not.    
 <p align="center">
  <img src="https://github.com/YXIE1010/ClickCollect/blob/main/Figure/Figure_4.png" alt="Sanity check of the collected melting layer" width="62%" height="62%"/> 
-</p>
+</p>   
+
+### 4 Demo video showing how to use ClickCollect  
+[<img src="https://img.youtube.com/vi/IgrfIy64aYA/maxresdefault.jpg" width="60%" height="60%"/>](https://youtu.be/IgrfIy64aYA)  
