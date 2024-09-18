@@ -3,6 +3,9 @@
 """
 Created on Wed Oct 18 12:33:18 2023
 
+Note: To insure a smooth graphic interface, it is recommended to launch the code
+directly from a python pipeline, e.g. run "python ClickCollect.py" in a terminal.
+
 @author: yanxieyx
 """
 
@@ -167,14 +170,6 @@ class InteractiveDrawing:
     def onkey(self, event):
         plt.close()
         return
-        ###### This part needs further improvements ######
-        # Ideal output:                                  #
-        # If xdata & ydata are not empty list, return    # 
-        # filled values as a mask                        #
-        # Otherwise if no melting layer was picked       #
-        # return a mask filled with zeros                #
-        ##################################################
-                                        
     
     def show(self, isec, time, rag, dVd, hrstr):
         # Plot the doppler velocity gradient figure: Top level
@@ -237,71 +232,39 @@ if __name__ == '__main__':     # used to excute the code when the file is run di
     dinfo = np.zeros((15,3))
     
     # load the date info      
-    # take May 2015 for an example
+    # take a case in May 2015 for an example
     dinfo[:,0] = 2015
     dinfo[:,1] = 5
-    dinfo[:,2] = np.array([9, 11, 12, 15, 16,\
-                                 17, 18, 19, 21, 22,\
-                                 25, 26, 28, 29, 31])
+    dinfo[:,2] = np.array([18])
 
     
     ##########################################
-    #for icase in range(0, dinfo.shape[0]):
-    for icase in range(0, 15):
+    for icase in range(0, dinfo.shape[0]):
         iyear = int( dinfo[icase, 0] )
         imon = int( dinfo[icase, 1] )
         iday = int( dinfo[icase, 2] )
         
-        flagday = 0
-        
-        if iyear < 2019:
-            fname = 'nsakazrgeC1.a1.' + '{:4d}'.format(iyear) + '{:02d}'.format(imon)\
-                    + '{:02d}'.format(iday) + '.??????'+'.cdf'
-        elif iyear > 2019:
-            fname = 'nsakazrcfrgeC1.a1.' + '{:4d}'.format(iyear) + '{:02d}'.format(imon)\
-                    + '{:02d}'.format(iday) + '.??????'+'.nc'
-            flagday = 1
-        elif iyear == 2019:
-            if imon < 10:
-                fname = 'nsakazrgeC1.a1.' + '{:4d}'.format(iyear) + '{:02d}'.format(imon)\
-                        + '{:02d}'.format(iday) + '.??????'+'.cdf'
-            elif imon > 10:
-                fname = 'nsakazrcfrgeC1.a1.' + '{:4d}'.format(iyear) + '{:02d}'.format(imon)\
-                        + '{:02d}'.format(iday) + '.??????'+'.nc'
-                flagday = 1
-            elif imon == 10:
-                if iday < 28:
-                    fname = 'nsakazrgeC1.a1.' + '{:4d}'.format(iyear) + '{:02d}'.format(imon)\
-                        + '{:02d}'.format(iday) + '.??????'+'.cdf'   
-                elif iday >= 28:
-                    fname = 'nsakazrcfrgeC1.a1.' + '{:4d}'.format(iyear) + '{:02d}'.format(imon)\
-                            + '{:02d}'.format(iday) + '.??????'+'.nc'
-                    flagday = 1
-        
+
+        fname = 'nsakazrgeC1.a1.' + '{:4d}'.format(iyear) + '{:02d}'.format(imon)\
+                    + '{:02d}'.format(iday) + '.??????'+'.cdf'       
         # KAZR filename '??????' refers to Hours/Minutes/Seconds 'HHMMSS'
+        
         flist = glob.glob( fpathin + fname )          # return a list of file
         filenum = len(flist)
+        
         if filenum == 1:
             f = nc.Dataset(flist[0], 'r') 
+            
             # Variables
-            if flagday == 0:
-                base_time = f.variables['base_time'][:]
-                time = f.variables['time_offset'][:]                           # seconds since YYYY-MM-DD base_time
-                rag = f.variables['range'][:]                                  # range(center of radar sample volume), units: m
-                Ze_cp = f.variables['reflectivity_copol'][:]                   # Reflectivity, copolar, units: dBZ
-                Vd_cp = f.variables['mean_doppler_velocity_copol'][:]          # Mean doppler velocity, copolar, units: m/s Positive values indicate motion away from the radar
-                SNR_cp = f.variables['signal_to_noise_ratio_copol'][:]         # Signal to noise ratio, copolar, unit: dB
-                lat = f.variables['lat'][:]                                    # North latitude
-                lon = f.variables['lon'][:]                                    # East longitude
-            elif flagday ==1:
-                base_time = f.variables['base_time'][:]
-                time = f.variables['time_offset'][:]
-                rag = f.variables['range'][:]
-                Ze_cp = f.variables['reflectivity'][:]
-                Vd_cp = f.variables['mean_doppler_velocity'][:]
-                SNR_cp = f.variables['signal_to_noise_ratio_copolar_h'][:]
-                lat = f.variables['lat'][:]
-                lon = f.variables['lon'][:]
+            base_time = f.variables['base_time'][:]
+            time = f.variables['time_offset'][:]                           # seconds since YYYY-MM-DD base_time
+            rag = f.variables['range'][:]                                  # range(center of radar sample volume), units: m
+            Ze_cp = f.variables['reflectivity_copol'][:]                   # Reflectivity, copolar, units: dBZ
+            Vd_cp = f.variables['mean_doppler_velocity_copol'][:]          # Mean doppler velocity, copolar, units: m/s Positive values indicate motion away from the radar
+            SNR_cp = f.variables['signal_to_noise_ratio_copol'][:]         # Signal to noise ratio, copolar, unit: dB
+            lat = f.variables['lat'][:]                                    # North latitude
+            lon = f.variables['lon'][:]                                    # East longitude
+
             # Define falling towards the radar as positive
             Vd_cp = -Vd_cp
             
@@ -316,25 +279,17 @@ if __name__ == '__main__':     # used to excute the code when the file is run di
             # Combine all the separate data files
             for ifname in range(0, filenum):
                 f = nc.Dataset(flist[ifname], 'r')
+                
                 # Variables
-                if flagday == 0:
-                    base_time0 = f.variables['base_time'][:]
-                    time0 = f.variables['time_offset'][:]                             # seconds since YYYY-MM-DD base_time
-                    rag0 = f.variables['range'][:]                             # range(center of radar sample volume), units: m
-                    Ze_cp0 = f.variables['reflectivity_copol'][:]              # Reflectivity, copolar, units: dBZ
-                    Vd_cp0 = f.variables['mean_doppler_velocity_copol'][:]     # Mean doppler velocity, copolar, units: m/s Positive values indicate motion away from the radar
-                    SNR_cp0 = f.variables['signal_to_noise_ratio_copol'][:]    # Signal to noise ratio, copolar, unit: dB
-                    lat0 = f.variables['lat'][:]                               # North latitude
-                    lon0 = f.variables['lon'][:]                               # East longitude
-                elif flagday == 1:
-                    base_time0 = f.variables['base_time'][:]
-                    time0 = f.variables['time_offset'][:]
-                    rag0 = f.variables['range'][:]
-                    Ze_cp0 = f.variables['reflectivity'][:]
-                    Vd_cp0 = f.variables['mean_doppler_velocity'][:]
-                    SNR_cp0 = f.variables['signal_to_noise_ratio_copolar_h'][:]
-                    lat0 = f.variables['lat'][:]
-                    lon0 = f.variables['lon'][:]
+                base_time0 = f.variables['base_time'][:]
+                time0 = f.variables['time_offset'][:]                             # seconds since YYYY-MM-DD base_time
+                rag0 = f.variables['range'][:]                             # range(center of radar sample volume), units: m
+                Ze_cp0 = f.variables['reflectivity_copol'][:]              # Reflectivity, copolar, units: dBZ
+                Vd_cp0 = f.variables['mean_doppler_velocity_copol'][:]     # Mean doppler velocity, copolar, units: m/s Positive values indicate motion away from the radar
+                SNR_cp0 = f.variables['signal_to_noise_ratio_copol'][:]    # Signal to noise ratio, copolar, unit: dB
+                lat0 = f.variables['lat'][:]                               # North latitude
+                lon0 = f.variables['lon'][:]                               # East longitude
+    
                 
                 # Define falling towards the radar as positive
                 Vd_cp0 = -Vd_cp0
@@ -374,31 +329,7 @@ if __name__ == '__main__':     # used to excute the code when the file is run di
         mon = date.month
         day = date.day
     
-        # Melting-level height detection
-        """
-        Steps of the melting level height detection
-
-        (1) Check quality control of the input data: missing value= -9999.0
-        filling on, default _FillValue of 9.9692e+36 used
-        mask=False, fill_value=1e+20
-        
-        (2) Determine the background noise mask: Using the threshold of signal to noise
-        ratio 
-        
-        (3) Divide one day into 6hr-sections
-        
-        (4) Annotate precipitation occurrence: Ze >= -10 dBz at the fourth range bins,
-        i.e., at the height of 190.6 m
-        
-        (5) Annotate rainfall occurrence: Doppler velocity Vd >= 3 m/s at the fourth 
-        range bin, i.e., at the height of 190.6 m
-        
-        (6) Sanity check: plot the manually picked melting level height back on the figure
-
-        (7) !!! To be implemented !!! Ask for used input of status, i.e., rain / snow /
-        mixed / non-preci / rain with multiple melting layers for each section
-        
-        """
+        # Melting-level height detection        
         
         # Step (1): Check invalid values
         MaskZe0 = np.ma.masked_where( (Ze_cp<=-9999)|(Ze_cp>=1e+10), Ze_cp ).mask
@@ -413,7 +344,6 @@ if __name__ == '__main__':     # used to excute the code when the file is run di
         Ze_new = np.where(noMaskNoi, Ze_cp, np.nan)
         Vd_new = np.where(noMaskNoi, Vd_cp, np.nan)
         
-
         id_preci = np.where( Ze_new[:,3] >= -10 )[0]     # index for precipitation
         maskPre = np.ma.masked_less(Ze_new[:,3], -10).mask
         MaskPre = np.repeat( np.reshape(maskPre, (maskPre.size,1)), rag.size, axis=1 )
@@ -428,9 +358,6 @@ if __name__ == '__main__':     # used to excute the code when the file is run di
         dVd = np.gradient(Vd_new, axis=1) / 30
         
         # Step (3): Divide into 6hr-sections
-        """
-        ! Consider including both Ze and Vd as the input variables !
-        """
         hourstr = ['00:00', '01:00', '02:00', '03:00', '04:00', '05:00',\
                    '06:00', '07:00', '08:00', '09:00', '10:00', '11:00',\
                    '12:00', '13:00', '14:00', '15:00', '16:00', '17:00',\
